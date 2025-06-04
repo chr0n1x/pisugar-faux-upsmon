@@ -4,7 +4,7 @@
 
 Silly project where I attempt to replace upsmon w/ an RPi Zero 2W hooked up to a pisugar battery + surge protector 🤣🤪😂😀😁🤔
 
-Use at your own discretion or if you're desparate 😅🫡🫠
+Use at your own discretion or if you're desperate 😅🫡🫠
 
 # DEAR LORD(s) WHY?
 
@@ -17,7 +17,7 @@ I installed UPSMon. And NUT utils. I hated the entire experience. And then my on
 3. make sure to plug in your RPi battery INTO A SURGE PROTECTOR that is NOT backed by a UPS or battery
 4. RPi needs to be running a distro w/ `systemctl`
 
-I have [THIS PiSugar batter](https://www.amazon.com/dp/B08D678XPR)
+I have [THIS PiSugar battery](https://www.amazon.com/dp/B08D678XPR)
 
 # Installation
 
