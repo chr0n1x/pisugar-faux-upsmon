@@ -1,5 +1,7 @@
 # pisugar-faux-upsmon
 
+![my faux-upsmon](docs/img/pisugar.png?raw=true)
+
 Silly project where I attempt to replace upsmon w/ an RPi Zero 2W hooked up to a pisugar battery + surge protector 🤣🤪😂😀😁🤔
 
 Use at your own discretion or if you're desparate 😅🫡🫠
@@ -11,9 +13,11 @@ I installed UPSMon. And NUT utils. I hated the entire experience. And then my on
 # Requirements
 
 1. A raspberry pi that can have a [pisugar battery installed](https://github.com/PiSugar/PiSugar/wiki/PiSugar-Power-Manager-(Software)).
-2. make sure that you have one of the models specified in the link above ☝️
+2. make sure that you have one of the battery models specified in the link above ☝️
 3. make sure to plug in your RPi battery INTO A SURGE PROTECTOR that is NOT backed by a UPS or battery
 4. RPi needs to be running a distro w/ `systemctl`
+
+I have [THIS PiSugar batter](https://www.amazon.com/dp/B08D678XPR)
 
 # Installation
 
