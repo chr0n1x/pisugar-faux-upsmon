@@ -61,8 +61,10 @@ get_pisugar_field() {
 }
 
 
+# tail because for some reason when I push the button once, there's an extra
+# "single" string in the response
 get_pisugar_field_val() {
-  get_pisugar_field $@ | cut -d':' -f2 | xargs
+  get_pisugar_field $@ | tail -n1 | cut -d':' -f2 | xargs
 }
 
 
