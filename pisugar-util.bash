@@ -60,7 +60,6 @@ get_pisugar_field() {
   echo "get $@" | nc -q 0 127.0.0.1 8423
 }
 
-
 # tail because for some reason when I push the button once, there's an extra
 # "single" string in the response
 get_pisugar_field_val() {
@@ -86,22 +85,8 @@ pisugar-info() {
 }
 
 
-list_shutdown() {
-  # file list with servers like
-  #   <pipeable conn command>
-  # e.g.:
-  #   ssh root@nas.lan
-  #
-  # you can (and should) be very careful with these kinds of lists!
-  IFS=$'\n'
-  for server_cmd in $(cat /etc/pisugar-server/pisugar-shutdown-commands); do
-    log_info "${server_cmd}"
-    if [ "$DRY_RUN" != "true" ]; then
-      bash -c "${server_cmd}" || :
-    fi
-    log_info
-  done
-  unset IFS
+shutdown() {
+  bash /etc/pisugar-server/pisugar-shutdown-commands
 }
 
 check() {
@@ -146,7 +131,7 @@ check() {
     log_info "DRY_RUN=true, only printing commands"
   fi
 
-  list_shutdown
+  shutdown
 
   log_info "Indefinitely polling on battery plug status until power comes back on..."
   log_info "...or I die"
@@ -181,7 +166,8 @@ case $1 in
     check
     ;;
   shutdown)
-    list_shutdown
+    shutdown
+    exit 0
     ;;
   poweronline)
     log_info "power back online (battery charging)"
@@ -208,7 +194,7 @@ check                 check pisugar battery. If it's not plugged in, start
                       shutdown the system if the power never comes back
                       and the time is up.
 
-                      when time is up, runs list_shutdown
+                      when time is up, runs shutdown
 
                       Available env-var configurations:
                         - DRY_RUN=[true|false]    don't run shutdown cmds
