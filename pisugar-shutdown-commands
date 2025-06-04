@@ -1,0 +1,6 @@
+ssh nut@nas.lan bash -c 'shutdown -h +0'
+ssh nut@proxmox.home bash -c 'shutdown -h +0'
+ssh nut@pi.hole bash -c 'shutdown -h +0'
+
+for worker in $(talosctl --talosconfig /etc/talos/automation-config get members | grep worker | awk '{print $10}' | jq -r '.[0]'); do talosctl -n $worker shutdown &; done
+for worker in $(talosctl --talosconfig /etc/talos/automation-config get members | grep control | awk '{print $10}' | jq -r '.[0]'); do talosctl -n $worker shutdown &; done
