@@ -1,6 +1,17 @@
 ssh nut@nas.lan bash -c 'shutdown -h +0'
-ssh nut@proxmox.home bash -c 'shutdown -h +0'
+ssh nut@edge    bash -c 'shutdown -h +0'
 ssh nut@pi.hole bash -c 'shutdown -h +0'
 
-for worker in $(talosctl --talosconfig /etc/talos/automation-config get members | grep worker | awk '{print $10}' | jq -r '.[0]'); do talosctl -n $worker shutdown &; done
-for worker in $(talosctl --talosconfig /etc/talos/automation-config get members | grep control | awk '{print $10}' | jq -r '.[0]'); do talosctl -n $worker shutdown &; done
+TALOSCTL_BIN=/nut/.local/bin/talosctl
+
+worker_ips=$($TALOSCTL_BIN --talosconfig /etc/talos/automation-config get members | grep worker | awk '{print $10}' | jq -r '.[0]')
+for worker in $worker_ips; do
+  $TALOSCTL_BIN -n $worker shutdown --wait=false
+done
+
+ctl_ips=$($TALOSCTL_BIN --talosconfig /etc/talos/automation-config get members | grep control | awk '{print $10}' | jq -r '.[0]')
+for ctl in $ctl_ips; do
+  $TALOSCTL_BIN -n $ctl shutdown --wait=false
+done
+
+ssh nut@proxmox.lan bash -c 'shutdown -h +0'
